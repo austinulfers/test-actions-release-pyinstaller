@@ -28,3 +28,9 @@ jobs:
       
       - name: Create Executable
         run: pyinstaller --onefile src/script.py
+
+      - name: Publish a New Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifact: dist/script.exe
+          token: ${{ secrets.GITHUB_TOKEN }}
