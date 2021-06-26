@@ -33,4 +33,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: dist/script.exe
+          tag: v1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
