@@ -5,18 +5,18 @@ on:
   pull_request: 
     branches: [main]
 
-  steps:
-    deploy:
-      runs-on: windows-latest
+jobs:
+  deploy:
+    runs-on: windows-latest
 
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
 
-        - name: Set Up Python 3.8
-          uses: actions/setup-python@v2
-          with:
-            python-version: 3.8 
+      - name: Set Up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8 
 
-        - name: Display Python Version
-          run: python -c "import sys; print(sys.version)"
+      - name: Display Python Version
+        run: python -c "import sys; print(sys.version)"
