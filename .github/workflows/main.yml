@@ -1,9 +1,6 @@
 on:
   push:
     branches: [main]
-  # pull reqeust just used for testing
-  pull_request: 
-    branches: [main]
 
 jobs:
   deploy:
