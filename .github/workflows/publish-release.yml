@@ -33,6 +33,7 @@ jobs:
         id: release
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           artifacts: dist/${{ env.script }}.exe
           tag: ${{ env.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
