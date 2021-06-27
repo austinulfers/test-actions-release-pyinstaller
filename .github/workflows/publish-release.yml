@@ -13,18 +13,6 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
-      - name: Check Tag Exists
-        uses: mukunku/tag-exists-action@v1.0.0
-        id: checkTag
-        with: 
-          tag: ${{ env.tag }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Fail If Tag Exists
-        if: ${{ steps.checkTag.outputs.exists == 'true'}}
-        run: exit 1
-
       - name: Set Up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -48,3 +36,26 @@ jobs:
           artifacts: dist/${{ env.script }}.exe
           tag: ${{ env.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Check Tag Exists
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: checkTag
+        with: 
+          tag: ${{ jobs.deploy.env.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fail If Tag Exists
+        if: ${{ steps.checkTag.outputs.exists == 'true'}}
+        run: exit 1
