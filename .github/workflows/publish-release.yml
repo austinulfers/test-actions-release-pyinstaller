@@ -1,28 +1,9 @@
 # this action creates an exe with the pyinstaller function within github actions
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-  checks:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-
-      - name: Check Tag Exists
-        uses: mukunku/tag-exists-action@v1.0.0
-        id: checkTag
-        with: 
-          tag: ${{ jobs.deploy.env.tag }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Fail If Tag Exists
-        if: ${{ steps.checkTag.outputs.exists == 'true'}}
-        run: exit 1
   deploy:
     runs-on: windows-latest
     env:
