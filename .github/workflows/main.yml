@@ -1,3 +1,4 @@
+# this action creates an exe with the pyinstaller function within github actions
 on:
   push:
     branches: [main]
