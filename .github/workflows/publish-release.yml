@@ -1,6 +1,6 @@
 # this action creates an exe with the pyinstaller function within github actions
 on:
-  push:
+  pull_request:
     branches: [main]
 
 jobs:
@@ -12,18 +12,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-
-      - name: Check Tag Exists
-        uses: mukunku/tag-exists-action@v1.0.0
-        id: checkTag
-        with: 
-          tag: ${{ env.tag }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Fail If Tag Exists
-        if: ${{ steps.checkTag.outputs.exists == 'true'}}
-        run: exit 1
 
       - name: Set Up Python 3.8
         uses: actions/setup-python@v2
@@ -45,6 +33,7 @@ jobs:
         id: release
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: true
           artifacts: dist/${{ env.script }}.exe
           tag: ${{ env.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
